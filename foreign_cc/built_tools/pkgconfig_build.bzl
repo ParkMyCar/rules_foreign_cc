@@ -45,15 +45,11 @@ def _pkgconfig_tool_impl(ctx):
     if sysroot_ldflags:
         absolute_ld += " " + _join_flags_list(ctx.workspace_name, sysroot_ldflags)
 
-    absolute_ar = absolutize(ctx.workspace_name, ar_path, True)
-    arflags = [e for e in frozen_arflags]
-
     if os_name(ctx) == "macos":
         non_sysroot_ldflags += ["-undefined", "error"]
 
     env.update({
-        "AR": absolute_ar,
-        "ARFLAGS": _join_flags_list(ctx.workspace_name, arflags),
+        # TODO: Also specify AR here.
         "CC": absolute_cc,
         "CFLAGS": _join_flags_list(ctx.workspace_name, non_sysroot_cflags),
         "LD": absolute_ld,

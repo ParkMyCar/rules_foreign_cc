@@ -6,8 +6,16 @@ load(
     "FOREIGN_CC_BUILT_TOOLS_ATTRS",
     "FOREIGN_CC_BUILT_TOOLS_FRAGMENTS",
     "FOREIGN_CC_BUILT_TOOLS_HOST_FRAGMENTS",
+    "absolutize",
     "built_tool_rule_impl",
 )
+load(
+    "//foreign_cc/private:cc_toolchain_util.bzl",
+    "get_env_vars",
+    "get_flags_info",
+    "get_tools_info",
+)
+load("//foreign_cc/private/framework:platform.bzl", "os_name")
 load("//toolchains/native_tools:tool_access.bzl", "get_make_data")
 
 def _pkgconfig_tool_impl(ctx):

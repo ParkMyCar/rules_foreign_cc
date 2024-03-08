@@ -58,8 +58,6 @@ def _pkgconfig_tool_impl(ctx):
         non_sysroot_ldflags += ["-undefined", "error"]
 
     env.update({
-        "AR": absolute_ar,
-        "ARFLAGS": _join_flags_list(ctx.workspace_name, arflags),
         "CC": absolute_cc,
         "CFLAGS": _join_flags_list(ctx.workspace_name, non_sysroot_cflags),
         "LD": absolute_ld,

@@ -75,7 +75,7 @@ def _make_tool_impl(ctx):
             non_sysroot_ldflags += ["-undefined", "error"]
 
         env.update({
-            "AR": absolute_ar,
+            "AR": "",
             "ARFLAGS": _join_flags_list(ctx.workspace_name, arflags),
             "CC": absolute_cc,
             "CFLAGS": _join_flags_list(ctx.workspace_name, non_sysroot_cflags),
@@ -86,7 +86,6 @@ def _make_tool_impl(ctx):
         configure_env = " ".join(["%s=\"%s\"" % (key, value) for key, value in env.items()])
         script = [
             "%s ./configure --without-guile --with-guile=no --disable-dependency-tracking --prefix=$$INSTALLDIR$$" % configure_env,
-            "cat build.cfg",
             "./build.sh",
             "./make install",
         ]

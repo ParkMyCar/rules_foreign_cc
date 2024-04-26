@@ -127,6 +127,18 @@ def _make_toolchain(version, register_toolchains):
             ],
         )
         return
+    if version == "4.2":
+        maybe(
+            http_archive,
+            name = "gnumake_src",
+            build_file_content = _ALL_CONTENT,
+            sha256 = "e968ce3c57ad39a593a92339e23eb148af6296b9f40aa453a9a9202c99d34436",
+            strip_prefix = "make-4.2",
+            urls = [
+                "https://ftp.gnu.org/gnu/make/make-4.2.tar.gz",
+            ],
+        )
+        return
 
     fail("Unsupported make version: " + str(version))
 

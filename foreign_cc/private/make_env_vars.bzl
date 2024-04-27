@@ -28,6 +28,14 @@ def get_make_env_vars(
     # https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Preset-Output-Variables.html
     vars["CPPFLAGS"] = deps_flags.flags
 
+    # CPPFLAGS needs to have access to the custom sysroot, if one is set.
+    #
+    # Some libraries (e.g. jemalloc) preprocess and compile code in two separate
+    # steps, so having the sysroot in only `CFLAGS` is not enough.
+    for flag in vars["CFLAGS"]:
+        if flag.startswith("--sysroot="):
+            vars["CPPFLAGS"].append(flag)
+
     return " ".join(["{}=\"{}\""
         .format(key, _join_flags_list(workspace_name, vars[key])) for key in vars])
 
